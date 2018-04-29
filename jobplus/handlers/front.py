@@ -21,15 +21,17 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user.is_disable:
-<<<<<<< HEAD
+            # <<<<<<< HEAD
             flash('用户被禁止')
-            return redierct(url_for('front.login'))
-        #判断用户角色,在models有定义
-=======
+            return redirect(url_for('front.login'))  # 修正拼写错误
+            # 判断用户角色,在models有定义
+            '''
+         =======
             flash('user had been banned')   # 增加import flash
             return redirect(url_for('front.login'))
         # 判断用户角色,在models有定义
 >>>>>>> dev
+            '''
         else:
             login_user(user, form.remember_me.data)
             next = 'user.profile'
@@ -37,7 +39,7 @@ def login():
                 next = 'admin.index'
             elif user.is_company:
                 next = 'company.profile'
-            return redirect(url_for('front.index'))   # 原文件redierct拼写错误
+            return redirect(url_for('front.index'))  # 原文件redierct拼写错误
     return render_template('login.html', form=form)
 
 
@@ -45,7 +47,7 @@ def login():
 @login_required  # 若没有登录则不能浏览
 def logout():
     logout_user()
-    flash('您已经退出登录', 'success') # 原文件没有flash
+    flash('您已经退出登录', 'success')  # 原文件没有flash
     return redirect(url_for('front.index'))  # 登出回到Home页
 
 
@@ -67,5 +69,6 @@ def companyregister():
         company.role = User.ROLE_COMPANY  # 设置成公司用户
         db.session.add(company)  # 提交到Company表
         db.session.commit()
+        flash('用户注册成功，请登录', 'success')  # 增加flash展示
         return redirect(url_for('front.login'))
     return render_template('companyregister.html', form=form)

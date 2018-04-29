@@ -38,5 +38,5 @@ jobplus5-15
 3、参照教程，修改base.html文件
 4、修改front.py 第51行，增加falsh展示
 
-问题：
-1、用户登录后不显示用户名
+##### 20180429-2
+修改冲突文件：forms.py、front.py、macros.html

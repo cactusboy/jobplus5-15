@@ -25,23 +25,24 @@ class LoginForm(FlaskForm):  # 登录页面的内容
             raise ValidationError('密码错误')
 
 
-<<<<<<< HEAD
-class RegisterForm(FlaskForm):    #求职者和公司的注册页面内容
-    name = StringField('用户名',validators=[Required(message='请输入名字'),Length(1,64)])
-    email = StringField('邮箱',validators=[Required(message='请输入邮箱'),Email()])
-    password = PasswordField('密码',validators=[Required(message='密码在6－24字符之内'),Length(6,24)])
-=======
+# <<<<<<< HEAD
 class RegisterForm(FlaskForm):  # 求职者和公司的注册页面内容
-    name = StringField('用户名', validators=[Required(), Length(1, 64)])
-    email = StringField('邮箱', validators=[Required(), Email()])
-    password = PasswordField('密码', validators=[Required(), Length(6, 24)])
->>>>>>> dev
+    name = StringField('用户名', validators=[Required(message='请输入名字'), Length(1, 64)])
+    email = StringField('邮箱', validators=[Required(message='请输入邮箱'), Email()])
+    password = PasswordField('密码', validators=[Required(message='密码在6－24字符之内'), Length(6, 24)])
     repear_password = PasswordField(
         '重复密码',
         validators=[Required(), Length(6, 24),
                     EqualTo('password', message='密码要一致')]
     )
     submit = SubmitField('注册')
+    '''
+class RegisterForm(FlaskForm):  # 求职者和公司的注册页面内容
+    name = StringField('用户名', validators=[Required(), Length(1, 64)])
+    email = StringField('邮箱', validators=[Required(), Email()])
+    password = PasswordField('密码', validators=[Required(), Length(6, 24)])
+    # >>>>>>> dev
+    '''
 
     def validate_email(self, field):
         if User.query.filter_by(email=field.data).first():
@@ -60,14 +61,15 @@ class RegisterForm(FlaskForm):  # 求职者和公司的注册页面内容
 
 
 class UserProfileForm(FlaskForm):
-<<<<<<< HEAD
-    real_name = StringField('姓名',validators=[Required(),Length(1,64)])
-    email = StringField('邮箱',validators=[Required(),Email()])
+    # <<<<<<< HEAD
+    real_name = StringField('姓名', validators=[Required(), Length(1, 64)])
+    email = StringField('邮箱', validators=[Required(), Email()])
     password = PasswordField('密码(no write no change)')
-    phone = StringField('手机号',validators=[Required()])
+    phone = StringField('手机号', validators=[Required()])
     work_year = IntegerField('工作年限')
     resume_url = FileField('上传简历')
     submit = SubmitField('提交')
+    '''
 =======
     real_name = StringField('name', validators=[Required(), Length(1, 64)])
     email = StringField('email', validators=[Required(), Email()])
@@ -77,25 +79,33 @@ class UserProfileForm(FlaskForm):
     resume_url = FileField('upload resume')
     submit = SubmitField('submit')
 >>>>>>> dev
+    '''
 
     def validate_phone(self, field):
         phone = field.data
-<<<<<<< HEAD
-        if phone[:2] not in ('13','15','18') and len(phone) !=11:
+        # <<<<<<< HEAD
+        if phone[:2] not in ('13', '15', '18') and len(phone) != 11:
             raise ValidationError('请输入一个正确手机号')
+
+    '''
 =======
         if phone[:2] not in ('13', '15', '18') and len(phone) != 11:
             raise ValidationError('please enter a correct phone number')
 >>>>>>> dev
+    '''
 
     def upload_resume(self):
         f = self.resume.data
         filename = self.real_name.data + '.pdf'
-<<<<<<< HEAD
-        f.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),'static','resumes',filename))
-=======
+        # <<<<<<< HEAD
+        '''
         f.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'static', 'resume', filename))
->>>>>>> dev
+        
+        '''
+        # =======
+        f.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'static', 'resume', filename))
+        # >>>>>>> dev
+
         return filename
 
     def update_profile(self, user):
