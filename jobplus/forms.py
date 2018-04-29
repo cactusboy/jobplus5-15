@@ -19,9 +19,10 @@ class LoginForm(FlaskForm):  # 登录页面的内容
             raise ValidationError('email has not register')
 
     def validate_password(self, field):
-        user = User.query.filter_by(email=self.email.data).first()
+        user = User.query.filter_by(password=self.password.data).first()
+        # 原文件验证的是email，改为password。
         if user and not user.check_password(field.data):
-            raise ValidationError('passwrod error')
+            raise ValidationError('密码错误')
 
 
 class RegisterForm(FlaskForm):  # 求职者和公司的注册页面内容
